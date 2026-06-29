@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio website built with Flask, SQLite, HTML, CSS, and JavaScript." />
+    <title>Harshita | Frontend Developer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="container topbar__content">
+          <a class="brand" href="#home">Harshita.</a>
+          <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section id="home" class="hero-section">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <span class="eyebrow">Frontend Developer</span>
+              <h1>Hi, I’m Harshita</h1>
+              <p>I build modern portfolio websites with polished frontend design, responsive interactions, and a Python backend powered by SQLite.</p>
+              <div class="hero-actions">
+                <a class="btn-primary" href="#contact">Hire Me</a>
+                <a class="btn-secondary" href="#portfolio">Let’s Talk</a>
+              </div>
+              <div class="social-links">
+                <a href="#">Github</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+              </div>
+            </div>
+
+            <div class="hero-card">
+              <div class="hero-card__media">
+                <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="image.jpg" />
+              </div>
+              <div class="hero-card__text">
+                <p class="small-label">Welcome to my portfolio</p>
+                <h2>Design. Develop. Deliver.</h2>
+                <p>Fast, responsive websites backed by Flask and SQLite for a seamless contact experience.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="container section-grid">
+            <div class="section-intro">
+              <h2>About Me</h2>
+              <p>I’m a frontend-focused developer with strong backend support. I enjoy translating UI concepts into real products with clean code and smart data handling.</p>
+            </div>
+            <div class="feature-cards">
+              <article class="feature-card">
+                <h3>Modern UI</h3>
+                <p>Glassmorphism, dark theme, fluid animations, and polished responsive layouts.</p>
+              </article>
+              <article class="feature-card">
+                <h3>Flask Backend</h3>
+                <p>Python app structure with routes, form handling, and dynamic page rendering.</p>
+              </article>
+              <article class="feature-card">
+                <h3>SQLite Database</h3>
+                <p>Reliable contact storage using SQLAlchemy models and a local SQLite database.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" class="section services-section">
+          <div class="container">
+            <div class="section-heading">
+              <h2>Services</h2>
+              <p>What I can deliver for your next project.</p>
+            </div>
+            <div class="services-grid">
+              <div class="service-card">
+                <h3>Web Design</h3>
+                <p>User-first design with strong visual hierarchy and mobile-first responsiveness.</p>
+              </div>
+              <div class="service-card">
+                <h3>Web Development</h3>
+                <p>Clean HTML, CSS, vanilla JavaScript, and Flask-powered backend features.</p>
+              </div>
+              <div class="service-card">
+                <h3>SQL Database</h3>
+                <p>Data persistence for contact forms sql, messages, and lightweight project data.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="portfolio" class="section portfolio-section">
+          <div class="container">
+            <div class="section-heading">
+              <h2>Portfolio</h2>
+              <p>Selected work that shows design polish and backend integration.</p>
+            </div>
+            <div class="portfolio-grid">
+              <article class="portfolio-card">
+                <h3>Portfolio Landing Page</h3>
+                <p>Hero section, services, and contact form built with Flask and styled in dark glassmorphism.</p>
+              </article>
+              <article class="portfolio-card">
+                <h3>Interactive Dashboard</h3>
+                <p>Information-rich UI with cards, charts, and a seamless control layout.</p>
+              </article>
+              <article class="portfolio-card">
+                <h3>Content Showcase</h3>
+                <p>Clean presentation for web projects, services, and user stories.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+          <div class="container contact-grid">
+            <div class="contact-intro">
+              <span class="eyebrow">Contact</span>
+              <h2>Let’s work together</h2>
+              <p>Send a message and I’ll reply soon. Your message is saved securely in SQLite.</p>
+              <div class="contact-details">
+                <p><strong>Email:</strong> bharshita612@gmail.com</p>
+                <p><strong>Phone:</strong> +91 7348995931</p>
+                <p><strong>Location:</strong> Ganagavthi,India</p>
+              </div>
+            </div>
+
+            <div class="contact-form-card">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+              <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% endwith %}
+
+              <form action="{{ url_for('main.contact') }}" method="post">
+                <label>
+                  Name
+                  <input type="text" name="name" placeholder="Your name" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" placeholder="you@example.com" required />
+                </label>
+                <label>
+                  Message
+                  <textarea name="message" rows="6" placeholder="Tell me about your project" required></textarea>
+                </label>
+                <button class="btn-primary" type="submit">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
